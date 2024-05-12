@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/v2")
 @RestController
+@CrossOrigin(origins = "http://localhost:9000")
 public class NameController {
 
     // il name ="" della RequestParam sarà la variabile locale
-    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping("/name")
     public String nome(@RequestParam String nome) {
         return nome;
