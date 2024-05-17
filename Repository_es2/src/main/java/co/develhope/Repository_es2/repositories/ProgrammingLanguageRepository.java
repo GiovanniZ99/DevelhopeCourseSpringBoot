@@ -8,4 +8,3 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ProgrammingLanguageRepository extends JpaRepository<Programminglanguage,Long> {
 }
 // come dimostro che ho usato postman?
-// comunque tutt'apposto funziona
