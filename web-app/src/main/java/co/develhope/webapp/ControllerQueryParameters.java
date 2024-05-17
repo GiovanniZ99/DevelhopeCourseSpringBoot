@@ -15,4 +15,5 @@ public class ControllerQueryParameters {
                           @RequestParam (name = "provincia") String provincia){
         return ("Ciao " + nome + " Com'è il tempo in " + provincia + "?");
     }
+
 }
