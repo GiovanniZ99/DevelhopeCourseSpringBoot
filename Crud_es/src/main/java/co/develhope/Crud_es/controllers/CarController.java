@@ -14,51 +14,41 @@ import java.util.Optional;
 @Validated
 public class CarController {
 
-        @Autowired
-        private CarRepository carRepository;
+    @Autowired
+    private CarRepository carRepository;
 
-        @PostMapping
-        public Car createCar(@RequestBody Car car) {
-            return carRepository.save(car);
-        }
-
-        @GetMapping
-        public List<Car> getAllCars() {
-            return carRepository.findAll();
-        }
-
-        @GetMapping("/{id}")
-        public Car getCarById(@PathVariable Long id) {
-            Optional<Car> car = carRepository.findById(id);
-            return car.orElse(null);
-        }
-
-        @PutMapping("/{id}")
-        public Car updateCarType(@PathVariable Long id, @RequestParam String type) {
-            if (!carRepository.existsById(id)) {
-                return null;
-            }
-            Car car = carRepository.findById(id).orElse(null);
-            if (car != null) {
-                car.setType(type);
-                carRepository.save(car);
-            }
-            return car;
-        }
-
-        @DeleteMapping("/{id}")
-        public String deleteCar(@PathVariable Long id) {
-            if (!carRepository.existsById(id)) {
-                return "Conflict";
-            }
-            carRepository.deleteById(id);
-            return "Deleted";
-        }
-
-        @DeleteMapping
-        public String deleteAllCars() {
-            carRepository.deleteAll();
-            return "All cars deleted";
-        }
+    @PostMapping
+    public Car createCar(@RequestBody Car car) {
+        return carRepository.save(car);
     }
+
+    @GetMapping
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Car getCarById(@PathVariable Long id) {
+        Optional<Car> car = carRepository.findById(id);
+        return car.orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Car updateCarType(@PathVariable Long id, @RequestParam String type) {
+        Car car = carRepository.findById(id).orElse(null);
+        car.setType(type);
+        carRepository.save(car);
+        return car;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCar(@PathVariable Long id) {
+        carRepository.deleteById(id);
+    }
+
+    @DeleteMapping
+    public void deleteAllCars() {
+        carRepository.deleteAll();
+    }
+}
 
