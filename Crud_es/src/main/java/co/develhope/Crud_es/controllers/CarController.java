@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
-@Validated
 public class CarController {
 
     @Autowired
