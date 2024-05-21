@@ -17,9 +17,8 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
-
     @ManyToOne
     @JoinColumn(name="class_id", nullable = false)
-    private Class classe; // maledetto che si rompe con Class class
+    private ClassSchool classe;
 }
 

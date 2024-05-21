@@ -21,6 +21,6 @@ public class Student {
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
-    @OneToMany(mappedBy = "studenti", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<Enrollment> enrollments;
 }

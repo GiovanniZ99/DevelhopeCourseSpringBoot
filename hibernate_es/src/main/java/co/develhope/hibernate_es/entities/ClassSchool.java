@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name="classi")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Class {
+public class ClassSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +20,6 @@ public class Class {
     private String title;
     @Column
     private String description;
-    @OneToMany(mappedBy = "classi",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classe", cascade = CascadeType.ALL)
     private Set<Enrollment> enrollment;
 }
