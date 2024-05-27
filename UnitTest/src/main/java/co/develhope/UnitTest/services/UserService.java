@@ -39,7 +39,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             userRepository.deleteById(id);
         } else {
-            throw new EntityNotFoundException("User to delete not found");
+            throw new EntityNotFoundException("User  not found");
         }
     }
 }
