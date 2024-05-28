@@ -10,24 +10,24 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table
+@Table(name="registi")
 public class Regista {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
+    @NotNull
+    @NotBlank
+    private String nome;
+    @Column(nullable = false)
     @NotBlank
     @NotNull
-    private String name;
+    private String nationality;
     @Column
     @NotBlank
     @NotNull
     private LocalDate birthday;
-    @Column
-    @NotBlank
-    @NotNull
-    private String nationality;
 }
