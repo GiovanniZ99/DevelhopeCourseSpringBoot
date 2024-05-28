@@ -21,18 +21,20 @@ public class StudentService {
     }
     public Student postStudent(Student student){
         Optional <Student> optionalStudent = Optional.ofNullable(studentRepository.findByCodiceFiscale(student.getCodiceFiscale()));
-        if(optionalStudent.isEmpty()){
+        if(optionalStudent.isPresent()){
             throw new IllegalArgumentException("Student already exists");
         }else{
            return studentRepository.save(student);
         }
     }
+
     public Student updateStudent(Student student, Long id){
         Optional <Student> optionalStudent = studentRepository.findById(id);
         if(optionalStudent.isPresent()){
         Student updatedStudent = optionalStudent.get();
         updatedStudent.setName(student.getName());
         updatedStudent.setSurname(student.getSurname());
+        updatedStudent.setCodiceFiscale(student.getCodiceFiscale());
         return studentRepository.save(updatedStudent);
         }else{
             throw new NoSuchElementException("User not found");
