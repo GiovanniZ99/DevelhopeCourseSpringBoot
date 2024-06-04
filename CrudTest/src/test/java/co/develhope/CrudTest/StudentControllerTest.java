@@ -62,7 +62,7 @@ public class StudentControllerTest {
 
 	@Test
 	public void testCreateStudent() throws Exception {
-		String newStudentJson = "{\"name\":\"Marco\",\"surname\":\"Rossi\",\"codiceFiscale\":\"B2\",\"isWorking\":true}";
+		String newStudentJson = "{\"name\":\"Marco\",\"surname\":\"Rossi\",\"codiceFiscale\":\"A1\",\"isWorking\":true}";
 
 		mvc.perform(post("/students")
 						.contentType(MediaType.APPLICATION_JSON)
@@ -70,9 +70,10 @@ public class StudentControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.name").value("Marco"))
 				.andExpect(jsonPath("$.surname").value("Rossi"))
-				.andExpect(jsonPath("$.codiceFiscale").value("B2"))
+				.andExpect(jsonPath("$.codiceFiscale").value("A1"))
 				.andExpect(jsonPath("$.isWorking").value(true));
 	}
+
 	@Test
 	public void testPostStudentIllegalArgumentEx() {
 		Student existingStudent = new Student();
