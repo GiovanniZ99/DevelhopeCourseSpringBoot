@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class MonthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        List<Month> months = new ArrayList<>();
+        HashSet<Month> months = new HashSet<>();
         months.add(new Month(1, "January", "Gennaio","Januar"));
         months.add(new Month(2, "February", "Febbraio","Februar"));
         months.add(new Month(3, "March", "Marzo","März"));
@@ -27,7 +28,7 @@ public class MonthInterceptor implements HandlerInterceptor {
             return false;
         }
         int MonthNumberInt = Integer.parseInt(monthNumber);
-       Optional<Month> optionalMonth = months.stream().filter(month -> month.getMonthNumber()==MonthNumberInt).findFirst();
+       Optional<Month> optionalMonth = months.stream().filter(month -> month.getMonthNumber()==MonthNumberInt).findAny();
        if(optionalMonth.isPresent()){
            request.setAttribute("month", optionalMonth.get());
        }else{
