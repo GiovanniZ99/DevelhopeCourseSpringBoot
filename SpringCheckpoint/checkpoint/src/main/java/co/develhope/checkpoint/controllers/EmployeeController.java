@@ -21,7 +21,7 @@ public class EmployeeController {
         try{
             return ResponseEntity.ok(employeeService.getEmployeeById(id));
         }catch(EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
