@@ -19,9 +19,9 @@ public class MonthInterceptor implements HandlerInterceptor {
         months.add(new Month(1, "January", "Gennaio","Januar"));
         months.add(new Month(2, "February", "Febbraio","Februar"));
         months.add(new Month(3, "March", "Marzo","März"));
-        months.add(new Month(2, "April", "April","April"));
-        months.add(new Month(2, "May", "Maggio","Mai"));
-        months.add(new Month(2, "June", "Giugno","Juni"));
+        months.add(new Month(4, "April", "April","April"));
+        months.add(new Month(5, "May", "Maggio","Mai"));
+        months.add(new Month(6, "June", "Giugno","Juni"));
         String monthNumber = request.getHeader("monthNumber");
         if(monthNumber == null || monthNumber.isEmpty()){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
