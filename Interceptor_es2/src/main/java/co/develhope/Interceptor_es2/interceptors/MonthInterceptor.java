@@ -6,9 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Optional;
 
 @Component
