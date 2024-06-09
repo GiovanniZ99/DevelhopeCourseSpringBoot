@@ -12,6 +12,8 @@ public class BasicController {
 
     @GetMapping
     public String getNameAuthCode(){
-        return environment.getProperty("dev.name");
+        String devName = environment.getProperty("devName");
+        String authCode = environment.getProperty("authCode");
+        return devName + authCode;
     }
 }
