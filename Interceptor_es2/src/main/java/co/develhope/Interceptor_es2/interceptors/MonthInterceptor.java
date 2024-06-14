@@ -29,7 +29,7 @@ public class MonthInterceptor implements HandlerInterceptor {
         int MonthNumberInt = Integer.parseInt(monthNumber);
         // mediante la stream controlliamo se il numero passato alla request corrisponde a un numero di un mese
        Optional<Month> optionalMonth = months.stream().filter(month -> month.getMonthNumber()==MonthNumberInt).findAny();
-       // se c'è settiamo la request con il mese che abbiamo trovato(per poi restituirla nel controller
+       // se c'è settiamo la request con il mese che abbiamo trovato(per poi restituirla nel controller)
        if(optionalMonth.isPresent()){
            request.setAttribute("month", optionalMonth.get());
        }else{
