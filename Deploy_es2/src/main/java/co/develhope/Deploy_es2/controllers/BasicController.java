@@ -7,7 +7,8 @@ import java.util.Random;
 
 @RestController
 public class BasicController {
-    @GetMapping
+
+    @GetMapping("/randInt")
     public int getRandInt(){
         Random random = new Random();
         int firstNum = random.nextInt(10);
