@@ -6,18 +6,18 @@ import co.develhope.CustomQueries_es2.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.Pageable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
@@ -30,24 +30,20 @@ public class FlightController {
     public ResponseEntity<List<Flight>> provisioningFlights(@RequestParam Optional<Integer> n) {
         int nFlights = n.orElse(100);
         Random random = new Random();
-
         List<Flight> flights = IntStream.range(0, nFlights)
                 .mapToObj(i -> {
                     Flight flight = new Flight();
-                    flight.setDescription("Description " + random.ints(48, 122).limit(10)
+                    flight.setDescription(random.ints(48, 122).limit(10)
                             .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString());
-                    flight.setFromAirport("FromAirport " + random.ints(48, 122).limit(3)
+                    flight.setFromAirport(random.ints(48, 122).limit(3)
                             .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString());
-                    flight.setToAirport("ToAirport " + random.ints(48, 122).limit(3)
+                    flight.setToAirport(random.ints(48, 122).limit(3)
                             .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString());
                     flight.setStatus(getRandomStatus(random));
                     return flight;
                 })
-                .collect(Collectors.toList());
-
-        List<Flight> savedFlights = flightRepository.saveAll(flights);
-
-        return ResponseEntity.ok(savedFlights);
+                .toList();
+        return ResponseEntity.ok().body(flightRepository.saveAll(flights));
     }
 
     private Status getRandomStatus(Random random) {
@@ -57,7 +53,7 @@ public class FlightController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Flight>> getAllFlights() {
-        List<Flight> flights = flightRepository.findAllByOrderByFromAirportAsc();
+        List<Flight> flights = flightRepository.findAll();
         return ResponseEntity.ok(flights);
     }
 
@@ -77,8 +73,10 @@ public class FlightController {
     @GetMapping("/paged")
     public ResponseEntity<Page<Flight>> getAllFlightsPaged(@RequestParam(defaultValue = "0") int page,
                                                            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fromAirport").ascending());
+
         Page<Flight> flightsPage = flightRepository.findAllByOrderByFromAirportAsc(pageable);
+
         return ResponseEntity.ok(flightsPage);
     }
 }
