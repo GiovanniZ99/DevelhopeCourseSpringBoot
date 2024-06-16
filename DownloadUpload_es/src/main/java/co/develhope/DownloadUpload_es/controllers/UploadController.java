@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
-    @Value("{fileRepo}")
+    @Value("${fileRepo}")
     private String fileRepo;
 
     @PostMapping

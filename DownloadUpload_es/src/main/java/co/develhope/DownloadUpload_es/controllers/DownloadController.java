@@ -17,7 +17,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/download")
 public class DownloadController {
-    @Value("{fileRepo}")
+    @Value("${fileRepo}")
     private String fileRepo;
 
     @GetMapping
