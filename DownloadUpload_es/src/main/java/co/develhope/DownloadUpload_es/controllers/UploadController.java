@@ -1,33 +1,30 @@
 package co.develhope.DownloadUpload_es.controllers;
 
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Value;
+import co.develhope.DownloadUpload_es.services.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
-    @Value("${fileRepo}")
-    private String fileRepo;
 
-    @PostMapping
-    public String uploadFile(@RequestParam MultipartFile file) throws IOException {
-        // preserviamo l'estensione ma...
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        // facciamo in modo che i nomi dei file non siano gli stessi assegnandogli un uuid
-        String newFileName = UUID.randomUUID().toString()+ extension;
+    @Autowired
+    FileService fileService;
 
-        File finalFolder = new File("{fileRepo}" + newFileName);
-        file.transferTo(finalFolder);
-
-        return newFileName;
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileName = fileService.uploadFile(file);
+            return ResponseEntity.ok(fileName);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Upload failed");
+        }
     }
 }
